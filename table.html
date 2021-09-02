@@ -25,7 +25,31 @@
 
         <!--##JAVASCRIPT---------------------- -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <?!= include("table-js"); ?>
-     
-    </body>
+    
+   	<script>
+	
+  document.addEventListener("DOMContentLoaded",function(){
+
+    google.script.run.withSuccessHandler(showData).getTableData();
+
+    });
+
+   function showData(dataArray){
+    $(document).ready(function(){
+      $('#table-body').DataTable({
+        data: dataArray,
+        //CHANGE THE TABLE HEADINGS BELOW TO MATCH WITH YOUR SELECTED DATA RANGE
+        columns: [
+          {"title":"First Name"},
+          {"title":"Middle Name"},
+          {"title":"Last Name"},
+          {"title":"Second Last Name or Suffix"},
+          {"title":"birthdate"},
+          {"title":"birthplace"}
+        ]
+      });
+    });
+  }
+		</script>
+	</body>
 </html>
