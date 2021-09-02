@@ -1,22 +1,51 @@
+<?php
+$spreadsheet = "https://docs.google.com/spreadsheets/d/1Sq79dHUXdt1X4knIxIquVHph2Tf1N8NIBQI_xAfCuRY"; //Get Public Shareable Link from Google Sheets (without '/edit?usp=sharing')
+
+$spreadsheet_url = $spreadsheet . "/export?gid=0&format=csv";
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <base target="_top">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <?!= include("table-css"); ?>
+         <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
     <body>
     <div class="container">
     <div class="row">
     <div class="col s12">
-    <table id="table-body" class="table table-striped table-sm table-hover table-bordered">
-    
-      </table>
+    <table class="table table-striped table-bordered table-fixed">
+            <thead>
+                <?php
+                $i = 1;
+                $f = fopen($spreadsheet_url, "r");
+                while (($line = fgetcsv($f)) !== false) {
+                    if ($i == 1) {
+                        echo "<tr>";
+                        foreach ($line as $cell) {
+                            echo "<th style='position: sticky; top: 0; background-color:#fff;'><b>" . htmlspecialchars($cell) . "</b></th>";
+                        }
+                        echo "</tr></thead><tbody>";
+
+                        $i = 2;
+                    } else {
+                        echo "<tr>";
+                        foreach ($line as $cell) {
+                            echo "<td>" . htmlspecialchars($cell) . "</td>";
+                        }
+                        echo "</tr>\n";
+                    }
+                }
+                fclose($f);
+                ?>
+                </tbody>
+        </table>
             
 	  
     </div>
@@ -27,30 +56,5 @@
         <!--##JAVASCRIPT---------------------- -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
-   	<script>
-	
-  document.addEventListener("DOMContentLoaded",function(){
-
-    google.script.run.withSuccessHandler(showData).getTableData();
-
-    });
-
-   function showData(dataArray){
-    $(document).ready(function(){
-      $('#table-body').DataTable({
-        data: dataArray,
-        //CHANGE THE TABLE HEADINGS BELOW TO MATCH WITH YOUR SELECTED DATA RANGE
-        columns: [
-          {"title":"First Name"},
-          {"title":"Middle Name"},
-          {"title":"Last Name"},
-          {"title":"Second Last Name or Suffix"},
-          {"title":"birthdate"},
-          {"title":"birthplace"}
-        ]
-      });
-    });
-  }
-		</script>
 	</body>
 </html>
