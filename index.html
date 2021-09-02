@@ -1,1 +1,35 @@
+<html>
+    <head>
+        <base target="_top">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <?!= include("Index-css"); ?>
+    </head>
+    <body>
+    
+    <div class="container">
 
+            <div class="title">Genealogy Vertical File Index</div>
+            <br>
+            <div class="tagline">Index to the Genealogy Vertical File Collection located at the Florida History and Genealogy Library.</div>
+            <br>
+            <div class="description">This is an index to the Genealogy Vertical File Collection located at the Florida History and Genealogy Library. The Genealogy Vertical File Collection is composed of the family charts of previous members of the Florida Genealogical Society, Tampa Chapter. The Florida History and Genealogy Library is located on the 4th floor of the John F. Germany Public Library.</div>
+<br>
+<a href="https://script.google.com/macros/s/AKfycbwJyyyfHObPH3OWZLHpkpx0VRRXx_14K84c3txkkEg/dev?v=table" id="btn" class="waves-ffect eaves-light btn-small indigo darke-3"><i class="material-icons left">chevron_right</i>See All Data</a>
+<br>
+            <div class="input-field col s12">
+              <input id="userSearch" type="text" class="validate"/>
+              <label for="userSearch">Enter your search terms here:</label>
+            </div>
+            <a href="javascript: onSearch();" id="btn" class="waves-ffect eaves-light btn-small indigo darke-3"><i class="material-icons left">chevron_right</i>Search</a>
+            <div id="searchResult"></div>
+        
+</div> <!--CLOSE CONTAINER-->
+
+        <!--##JAVASCRIPT---------------------- -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <?!= include("Index-js"); ?>
+     
+    </body>
+</html>
